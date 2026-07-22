@@ -390,11 +390,12 @@ body.is-ready #creature-canvas {
 }
 
 .open-morphospace {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: auto;
   margin: 10px 0 27px;
-  padding: 11px 14px;
-  border: 1px solid color-mix(in srgb, var(--accent) 62%, transparent);
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 62%, transparent);
   border-radius: 0;
   background: transparent;
   color: #b8b8b4;
@@ -402,17 +403,14 @@ body.is-ready #creature-canvas {
   font-size: 10.5px;
   line-height: 1.3;
   letter-spacing: 0.025em;
-  text-align: left;
   cursor: pointer;
   transition:
     border-color 160ms ease,
-    color 160ms ease,
-    background 160ms ease;
+    color 160ms ease;
 }
 
 .open-morphospace:hover {
   border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 5%, transparent);
   color: var(--text);
 }
 
