@@ -4,6 +4,7 @@ dist/
 *.log
 .playwright-cli/
 saver/native/target/
+saver/platforms/*/build/
 
 # Local browser QA artefacts are regenerated on demand.
 output/
