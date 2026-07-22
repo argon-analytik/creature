@@ -39,6 +39,15 @@ Morphospace is an equation laboratory for creating new specimens. It combines se
 - Apply nonlinear developmental operations such as ripple, mirror, flow, echo, carve, and bloom.
 - Edit and apply the bounded WebGL program while the rendered creature remains visible.
 - Copy compact notation, p5.js, and WebGL representations for further study.
+- Preview a specimen as a full-screen screensaver and export it as a portable `.creature` preset.
+
+## Screensaver presets
+
+Morphospace can turn the current specimen into a versioned `.creature` file. The preset preserves the generated equation program, genome, tuning, palette, and derived locomotion profile, so the same creature can later be rendered by a native screensaver host. The browser preview already follows that preset and keeps the organism moving along its own mathematical flow rather than sliding a static image across the screen.
+
+The interchange format is deliberately bounded: presets contain validated data and expressions, not arbitrary JavaScript, shell commands, or network access. Its JSON Schema lives in [`saver/contracts/creature-preset.schema.json`](saver/contracts/creature-preset.schema.json), with a shared Rust validator and early platform-host scaffolds under [`saver/`](saver/).
+
+Native installers for macOS, Windows, and Linux are a later milestone. For now, Morphospace provides the export and an accurate browser preview; the platform folders are development foundations, not end-user installers yet.
 
 ## Quick start
 
@@ -70,6 +79,7 @@ See [Architecture](docs/ARCHITECTURE.md) for the rendering, state, translation, 
 creature/
 ├── index.html              # Museum
 ├── morphospace/            # Equation laboratory
+├── saver/                  # Preset contract, preview, validator, host scaffolds
 ├── src/                    # Rendering, catalogue, generator, i18n, tests
 ├── public/                 # Fonts, social previews, crawler metadata
 ├── docs/                   # Public architecture and images
