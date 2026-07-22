@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://creature.argio.ch/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta
+      id="page-description"
+      name="description"
+      content="A browser museum of mathematical creatures, animated live from Wolfram and p5.js equations."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://creature.argio.ch/" />
+    <meta property="og:title" content="creature – a museum of equations" />
+    <meta
+      property="og:description"
+      content="Mathematical creatures animated live from Wolfram and p5.js equations."
+    />
+    <meta property="og:image" content="https://creature.argio.ch/creature-social.webp?v=5dc0d7e" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A white mathematical point creature with a red pulse behind the word creature"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="creature – a museum of equations" />
+    <meta
+      name="twitter:description"
+      content="Mathematical creatures animated live from Wolfram and p5.js equations."
+    />
+    <meta name="twitter:image" content="https://creature.argio.ch/creature-social.webp?v=5dc0d7e" />
+    <meta
+      name="twitter:image:alt"
+      content="A white mathematical point creature with a red pulse behind the word creature"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://creature.argio.ch/#website",
+            "url": "https://creature.argio.ch/",
+            "name": "creature",
+            "alternateName": "creature – a museum of equations",
+            "inLanguage": ["en", "de", "da", "fr", "it", "ja", "es"]
+          },
+          {
+            "@type": "CreativeWork",
+            "@id": "https://creature.argio.ch/#work",
+            "url": "https://creature.argio.ch/",
+            "name": "creature – a museum of equations",
+            "description": "A browser museum of mathematical creatures, animated live from Wolfram and p5.js equations.",
+            "image": "https://creature.argio.ch/creature-social.webp?v=5dc0d7e",
+            "genre": "Generative art",
+            "keywords": ["generative art", "mathematics", "Wolfram", "p5.js", "WebGL"],
+            "isPartOf": { "@id": "https://creature.argio.ch/#website" },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Argon Analytik",
+              "url": "https://argon-analytik.ch/"
+            },
+            "contributor": [
+              {
+                "@type": "Person",
+                "name": "@yuruyurau",
+                "url": "https://x.com/yuruyurau/status/1933629116575855091"
+              },
+              {
+                "@type": "Person",
+                "name": "Vitaliy Kaurov",
+                "url": "https://community.wolfram.com/groups/-/m/t/3529968"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <title>creature – a museum of equations</title>
+  </head>
+  <body>
+    <header class="museum-header">
+      <nav class="museum-nav">
+        <p class="wordmark" aria-hidden="true">creature</p>
+        <span class="nav-mode is-active" aria-current="page">MUSEUM</span>
+        <a class="nav-mode" href="/morphospace/">MORPHOSPACE</a>
+      </nav>
+
+      <div id="language-picker" class="language-picker" role="group" aria-label="Language">
+        <button type="button" data-locale="en">EN</button>
+        <button type="button" data-locale="de">DE</button>
+        <button type="button" data-locale="da">DA</button>
+        <button type="button" data-locale="fr">FR</button>
+        <button type="button" data-locale="it">IT</button>
+        <button type="button" data-locale="ja">JA</button>
+        <button type="button" data-locale="es">ES</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="experience" class="experience" aria-label="Live mathematical creature exhibition">
+        <canvas id="creature-canvas" aria-hidden="true"></canvas>
+        <p id="render-status" class="render-status" role="status" hidden>
+          This artwork needs a browser with WebGL 2 support.
+        </p>
+      </section>
+
+      <article class="essay">
+        <h1 id="essay-title">A creature made of equations</h1>
+
+        <p id="essay-opening-1">
+          This creature does not exist in any ordinary sense. It was neither drawn from nature
+          nor constructed according to an anatomy. Its shape emerges from a small collection of
+          mathematical relationships unfolding through time, with thousands of points following
+          the same compact rule.
+        </p>
+
+        <p id="essay-opening-2">
+          As those points move together, abstraction begins to resemble anatomy. Curves appear
+          like limbs, roots, tendrils or the exposed structure of an unknown animal. The figure
+          seems to turn, reach and drift through the darkness, although the equations contain no
+          body and prescribe no intention.
+        </p>
+
+        <p id="rule-intro">The rule behind it is almost disconcertingly small:</p>
+
+        <div id="mobile-experience-slot"></div>
+
+        <nav
+          id="creature-switcher"
+          class="creature-switcher"
+          role="tablist"
+          aria-label="Mathematical creature catalogue"
+        ></nav>
+
+        <div id="palette-editor" class="palette-editor" aria-label="Selected creature palette">
+          <span id="palette-title" class="palette-title">Palette</span>
+          <label>
+            <span id="body-label">Body</span>
+            <input id="body-color" type="color" value="#f5f5f0" />
+          </label>
+          <label>
+            <span id="pulse-label">Pulse</span>
+            <input id="pulse-color" type="color" value="#ff1b12" />
+          </label>
+          <button id="copy-p5" type="button">Copy p5.js</button>
+          <button id="reset-palette" type="button">Reset</button>
+        </div>
+
+        <pre class="code-frame"><code id="creature-code" aria-live="polite"></code></pre>
+        <button id="open-morphospace" class="open-morphospace" type="button">
+          Open in Morphospace
+        </button>
+
+        <p id="essay-closing-1">
+          There is no creature hidden inside these expressions. They describe oscillation,
+          distance, rotation and time. Yet their interaction produces something that appears
+          coherent enough for the mind to treat it as a living presence.
+        </p>
+
+        <p id="essay-closing-2">
+          At some point, we stop following the individual dots. Their relations become more
+          important than the points themselves, and movement becomes form. The mathematics does
+          not name an animal. That recognition belongs entirely to the observer.
+        </p>
+
+        <p id="essay-closing-3">
+          Eugene Wigner once wondered why mathematics describes the natural world with such
+          astonishing precision. Here, the question seems to approach us from the opposite
+          direction. A few abstract functions produce a form that feels natural before it
+          resembles anything familiar.
+        </p>
+
+        <p id="essay-closing-4">
+          Perhaps mathematics does more than describe finished things. Perhaps it reveals how
+          much form can already be contained in a relation, how much apparent complexity can
+          unfold from a simple rule, and how readily the mind turns order into life.
+        </p>
+
+        <p id="essay-closing-5">
+          For a moment, the creature remains suspended between equation and organism: reality
+          seen before it becomes form.
+        </p>
+      </article>
+    </main>
+
+    <footer id="credit" class="credit" aria-label="Source attribution">
+      <span id="p5-by">p5.js by</span>
+      <a
+        href="https://x.com/yuruyurau/status/1933629116575855091"
+        target="_blank"
+        rel="noreferrer"
+      >@yuruyurau</a>
+      <span aria-hidden="true">·</span>
+      <span id="wolfram-by">Wolfram translation by</span>
+      <a
+        href="https://community.wolfram.com/groups/-/m/t/3529968"
+        target="_blank"
+        rel="noreferrer"
+      >Vitaliy Kaurov</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://argon-analytik.ch/" target="_blank" rel="noreferrer">Argon Analytik</a>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.playwright-cli/
+
+# Local browser QA artefacts are regenerated on demand.
+output/
+
+# Private deployment and operator records are maintained outside this public repository.
+deploy/
+docs/ops-log.md

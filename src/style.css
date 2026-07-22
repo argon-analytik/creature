@@ -1,0 +1,663 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-light.otf?v=1") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-regular.otf?v=1") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-medium.otf?v=1") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-semi-bold.otf?v=1") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-regular.woff2?v=1") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: "Inter", sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  --accent: #ff1b12;
+  --text: #e7e7e3;
+  --muted: #969693;
+  --quiet: #626260;
+  background: #000;
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+body {
+  min-height: 100svh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.museum-header {
+  display: contents;
+}
+
+.language-picker {
+  position: fixed;
+  z-index: 5;
+  top: max(29px, env(safe-area-inset-top));
+  right: max(49px, calc(env(safe-area-inset-right) + 17px));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.language-picker button {
+  position: relative;
+  min-width: 14px;
+  padding: 0 0 5px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--quiet);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.045em;
+  text-align: center;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.language-picker button::after {
+  position: absolute;
+  right: 1px;
+  bottom: 0;
+  left: 1px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.35);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.language-picker button:hover,
+.language-picker button:focus-visible,
+.language-picker button.is-current {
+  color: var(--text);
+}
+
+.language-picker button.is-current::after {
+  opacity: 0.72;
+  transform: scaleX(1);
+}
+
+.experience,
+#creature-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.experience {
+  isolation: isolate;
+  background: #000;
+}
+
+#creature-canvas {
+  display: block;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+body.is-ready #creature-canvas {
+  opacity: 1;
+}
+
+.museum-nav {
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 55px;
+  padding: 0 28px;
+}
+
+.wordmark {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+.nav-mode {
+  position: relative;
+  top: 1px;
+  color: #5d5d5a;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-decoration-color: #5d5d5a;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-transform: uppercase;
+}
+
+.nav-mode.is-active {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-mode:focus-visible {
+  outline: 1px solid rgb(255 255 255 / 58%);
+  outline-offset: 4px;
+}
+
+.essay {
+  position: fixed;
+  z-index: 2;
+  top: 52px;
+  right: max(32px, env(safe-area-inset-right));
+  bottom: 64px;
+  width: min(38vw, 550px);
+  padding: 0 17px 42px 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: rgb(255 255 255 / 18%) transparent;
+  scrollbar-width: thin;
+}
+
+.essay::-webkit-scrollbar {
+  width: 3px;
+}
+
+.essay::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 18%);
+}
+
+.essay h1 {
+  max-width: none;
+  margin: 0 0 28px;
+  color: var(--text);
+  font-size: clamp(31px, 2.55vw, 43px);
+  font-weight: 350;
+  line-height: 1.3;
+  letter-spacing: 0.008em;
+}
+
+.essay p {
+  max-width: 47em;
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.58;
+  letter-spacing: -0.005em;
+}
+
+.creature-switcher {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin: 31px 0 17px;
+  padding: 0 0 3px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.creature-switcher::-webkit-scrollbar {
+  display: none;
+}
+
+.exhibit-button {
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 15px;
+  padding: 0 0 7px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--quiet);
+  font-size: 10px;
+  font-weight: 450;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.exhibit-button::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.3);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.exhibit-button:hover,
+.exhibit-button:focus-visible,
+.exhibit-button[aria-selected="true"] {
+  color: var(--text);
+}
+
+.exhibit-button[aria-selected="true"]::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.exhibit-button:focus-visible,
+.palette-editor button:focus-visible,
+.palette-editor input:focus-visible,
+.open-morphospace:focus-visible,
+.language-picker button:focus-visible,
+.credit a:focus-visible {
+  outline: 1px solid rgb(255 255 255 / 58%);
+  outline-offset: 4px;
+}
+
+.palette-editor {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: clamp(10px, 1.3vw, 19px);
+  min-height: 24px;
+  margin: 0 0 18px;
+  color: var(--quiet);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.palette-title {
+  color: var(--muted);
+}
+
+.palette-editor label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.palette-editor input[type="color"] {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.palette-editor input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.palette-editor input[type="color"]::-webkit-color-swatch {
+  border: 0;
+}
+
+.palette-editor input[type="color"]::-moz-color-swatch {
+  border: 0;
+}
+
+.palette-editor button {
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 0;
+  background: transparent;
+  color: var(--quiet);
+  font-size: 10px;
+  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.palette-editor button:hover {
+  border-color: currentColor;
+  color: var(--muted);
+}
+
+.code-frame {
+  max-height: 265px;
+  margin: 0;
+  padding: 14px 0 15px;
+  overflow: auto;
+  border-block: 1px solid rgb(255 255 255 / 8%);
+  color: #b8b8b4;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 400;
+  line-height: 1.52;
+  tab-size: 2;
+  white-space: pre;
+  scrollbar-color: rgb(255 255 255 / 16%) transparent;
+  scrollbar-width: thin;
+}
+
+.open-morphospace {
+  display: block;
+  width: 100%;
+  margin: 10px 0 27px;
+  padding: 11px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 62%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: #b8b8b4;
+  font: inherit;
+  font-size: 10.5px;
+  line-height: 1.3;
+  letter-spacing: 0.025em;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.open-morphospace:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  color: var(--text);
+}
+
+.render-status {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: 29%;
+  width: min(26rem, calc(56% - 48px));
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: rgb(255 255 255 / 62%);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.credit {
+  position: fixed;
+  z-index: 4;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: max(22px, env(safe-area-inset-left));
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.38em;
+  color: rgb(255 255 255 / 34%);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.008em;
+  pointer-events: none;
+}
+
+.credit a {
+  color: inherit;
+  text-decoration-color: rgb(255 255 255 / 25%);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  pointer-events: auto;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.credit a:hover,
+.credit a:focus-visible {
+  color: rgb(255 255 255 / 76%);
+  text-decoration-color: currentColor;
+}
+
+@media (max-height: 760px) and (min-width: 901px) {
+  .essay {
+    top: 38px;
+  }
+
+  .essay h1 {
+    margin-bottom: 22px;
+    font-size: clamp(29px, 2.25vw, 38px);
+  }
+
+  .essay p {
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.52;
+  }
+
+  .creature-switcher {
+    margin-top: 24px;
+  }
+
+  .code-frame {
+    max-height: 210px;
+  }
+}
+
+@media (max-width: 900px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .museum-header {
+    position: fixed;
+    z-index: 7;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: block;
+    height: max(52px, calc(env(safe-area-inset-top) + 44px));
+    border-bottom: 1px solid rgb(255 255 255 / 7%);
+    background: #000;
+    isolation: isolate;
+  }
+
+  .experience {
+    position: relative;
+    width: 100%;
+    height: 54svh;
+    min-height: 390px;
+  }
+
+  #creature-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .museum-nav {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    gap: 11px;
+    width: 100%;
+    height: 51px;
+    padding-inline: 16px;
+  }
+
+  .wordmark {
+    font-size: 13px;
+  }
+
+  .nav-mode {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .language-picker {
+    position: absolute;
+    z-index: 1;
+    top: max(23px, env(safe-area-inset-top));
+    right: max(20px, env(safe-area-inset-right));
+    gap: 3px;
+  }
+
+  .language-picker button {
+    min-width: 11px;
+    font-size: 8px;
+  }
+
+  .render-status {
+    position: absolute;
+    left: 50%;
+    width: calc(100% - 48px);
+  }
+
+  .essay {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 76px 22px 34px;
+    overflow: visible;
+  }
+
+  .essay h1 {
+    margin-bottom: 25px;
+    font-size: clamp(31px, 9vw, 42px);
+  }
+
+  .essay p {
+    font-size: 14px;
+  }
+
+  .creature-switcher {
+    margin-top: 29px;
+  }
+
+  .code-frame {
+    max-height: 300px;
+    font-size: 10px;
+  }
+
+  .credit {
+    position: relative;
+    inset: auto;
+    flex-wrap: wrap;
+    padding: 8px 22px max(22px, env(safe-area-inset-bottom));
+    column-gap: 0.34em;
+    row-gap: 0;
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 430px) {
+  .experience {
+    height: 50svh;
+    min-height: 340px;
+  }
+
+  .essay {
+    padding-inline: 19px;
+  }
+
+  .palette-editor {
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .palette-editor::-webkit-scrollbar {
+    display: none;
+  }
+
+  .palette-editor button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .palette-editor label,
+  .palette-title {
+    flex: 0 0 auto;
+  }
+
+  .palette-editor label {
+    gap: 4px;
+  }
+
+  .palette-editor input[type="color"] {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+body[data-locale="ja"] .essay p {
+  line-height: 1.78;
+  letter-spacing: 0.015em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #creature-canvas,
+  .exhibit-button,
+  .exhibit-button::after,
+  .palette-editor button,
+  .open-morphospace,
+  .language-picker button,
+  .language-picker button::after,
+  .credit a {
+    transition: none;
+  }
+}

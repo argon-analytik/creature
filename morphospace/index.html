@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://creature.argio.ch/morphospace/" />
+    <meta
+      id="builder-page-description"
+      name="description"
+      content="Generate, evolve and edit living mathematical forms directly in the browser."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://creature.argio.ch/morphospace/" />
+    <meta property="og:title" content="creature – morphospace" />
+    <meta
+      property="og:description"
+      content="A laboratory for generating, evolving and editing mathematical creatures."
+    />
+    <meta property="og:image" content="https://creature.argio.ch/morphospace-social.webp?v=1" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A violet mathematical point creature beside the Morphospace equation editor"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="creature – morphospace" />
+    <meta
+      name="twitter:description"
+      content="A laboratory for generating, evolving and editing mathematical creatures."
+    />
+    <meta name="twitter:image" content="https://creature.argio.ch/morphospace-social.webp?v=1" />
+    <meta
+      name="twitter:image:alt"
+      content="A violet mathematical point creature beside the Morphospace equation editor"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "creature – morphospace",
+        "url": "https://creature.argio.ch/morphospace/",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web browser",
+        "image": "https://creature.argio.ch/morphospace-social.webp?v=1",
+        "isPartOf": { "@id": "https://creature.argio.ch/#website" },
+        "inLanguage": ["en", "de", "da", "fr", "it", "ja", "es"]
+      }
+    </script>
+    <title>creature – morphospace</title>
+  </head>
+  <body>
+    <header class="builder-header">
+      <a id="builder-brand" class="builder-brand" href="/" aria-label="Back to the creature museum">creature</a>
+      <a id="museum-link" class="nav-mode" href="/">MUSEUM</a>
+      <span class="nav-mode is-active" aria-current="page">MORPHOSPACE</span>
+      <span id="save-status" class="save-status" aria-live="polite">saved locally</span>
+    </header>
+
+    <main class="builder-layout">
+      <section id="builder-stage" class="builder-stage" aria-label="Live creature preview">
+        <canvas id="builder-canvas" aria-hidden="true"></canvas>
+        <p id="builder-render-status" class="builder-render-status" role="status" hidden>
+          This laboratory needs a browser with WebGL 2 support.
+        </p>
+        <div class="stage-caption" aria-hidden="true">
+          <span id="generated-name">Unnamed organism</span>
+          <span><span id="genome-id">genome 00000000</span> · <span id="stage-points">12 000</span> <span id="points-label">points</span></span>
+        </div>
+      </section>
+
+      <aside id="builder-inspector" class="builder-inspector" aria-labelledby="builder-title">
+        <div class="builder-intro">
+          <p id="builder-kicker" class="builder-kicker">Equation laboratory</p>
+          <h1 id="builder-title">Generate a creature</h1>
+          <p id="builder-intro-copy">
+            Generate a new equation program, then tune the form that emerges. Seven
+            mathematical topologies keep the search coherent without drawing an anatomy.
+          </p>
+        </div>
+
+        <div class="mobile-stage-slot" id="mobile-stage-slot"></div>
+
+        <div id="builder-actions" class="builder-actions" aria-label="Builder actions">
+          <button id="generate-builder" class="primary-action" type="button">Generate new</button>
+          <button id="undo-builder" type="button" disabled>Undo</button>
+          <button id="reset-builder" type="button">Reset tuning</button>
+        </div>
+
+        <section class="control-section evolution-section" aria-labelledby="evolution-title">
+          <div class="section-heading">
+            <h2 id="evolution-title">Evolution</h2>
+            <span id="evolution-hint">distance from this specimen</span>
+          </div>
+          <div class="evolution-choice-row">
+            <div id="evolution-options" class="choice-options" role="radiogroup" aria-label="Mutation distance">
+              <button id="evolution-close" type="button" role="radio" data-mode="close" aria-checked="false">Close</button>
+              <button id="evolution-bold" type="button" role="radio" data-mode="bold" aria-checked="true">Bold</button>
+              <button id="evolution-strange" type="button" role="radio" data-mode="strange" aria-checked="false">Strange</button>
+            </div>
+            <button id="vary-builder" class="evolution-action" type="button" aria-describedby="evolution-hint">
+              <span id="vary-builder-label">Mutate</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="control-section form-field-section" aria-labelledby="form-field-title">
+          <div class="section-heading">
+            <h2 id="form-field-title">Form field</h2>
+            <span id="form-field-hint">shape several genes at once</span>
+          </div>
+          <button
+            id="form-field"
+            class="form-field"
+            type="button"
+            aria-label="Form field: use left and right for span, up and down for complexity"
+          >
+            <span class="form-field-grid" aria-hidden="true"></span>
+            <span id="field-ordered" class="field-label field-label-top" aria-hidden="true">ordered</span>
+            <span id="field-wild" class="field-label field-label-bottom" aria-hidden="true">wild</span>
+            <span id="form-field-cursor" class="form-field-cursor" aria-hidden="true"></span>
+          </button>
+          <div class="field-x-labels" aria-hidden="true">
+            <span id="field-compact">compact</span>
+            <span id="field-expansive">expansive</span>
+          </div>
+        </section>
+
+        <section class="control-section transformation-section" aria-labelledby="transformation-title">
+          <div class="section-heading">
+            <h2 id="transformation-title">Development</h2>
+            <span id="transformation-hint">nonlinear mutation</span>
+          </div>
+          <div
+            id="transformation-options"
+            class="transformation-options"
+            role="radiogroup"
+            aria-label="Developmental transformation"
+          ></div>
+        </section>
+
+        <details class="fine-tuning">
+          <summary>
+            <span id="fine-tuning-label">Fine tuning</span>
+            <span id="fine-tuning-hint">14 individual genes</span>
+          </summary>
+          <section class="control-section" aria-labelledby="form-controls-title">
+            <div class="section-heading">
+              <h2 id="form-controls-title">Form</h2>
+              <span id="form-controls-hint">generated mathematics</span>
+            </div>
+            <div id="form-controls" class="control-list"></div>
+          </section>
+
+          <section class="control-section" aria-labelledby="surface-controls-title">
+            <div class="section-heading">
+              <h2 id="surface-controls-title">Structure</h2>
+              <span id="surface-controls-hint">resonance and polarity</span>
+            </div>
+            <div id="surface-controls" class="control-list"></div>
+          </section>
+
+          <section class="control-section" aria-labelledby="presence-controls-title">
+            <div class="section-heading">
+              <h2 id="presence-controls-title">Life</h2>
+              <span id="presence-controls-hint">phase, motion and matter</span>
+            </div>
+            <div id="presence-controls" class="control-list"></div>
+          </section>
+        </details>
+
+        <section class="control-section palette-section" aria-labelledby="builder-palette-title">
+          <div class="section-heading">
+            <h2 id="builder-palette-title">Colour</h2>
+            <span id="palette-hint">generated, then editable</span>
+          </div>
+          <div class="builder-palette">
+            <label>
+              <span id="builder-body-label">Body</span>
+              <input id="builder-body-color" type="color" value="#f5f5f0" />
+            </label>
+            <label>
+              <span id="builder-pulse-label">Pulse</span>
+              <input id="builder-pulse-color" type="color" value="#ff542e" />
+            </label>
+          </div>
+        </section>
+
+        <section class="code-laboratory" aria-labelledby="code-laboratory-title">
+          <div class="section-heading code-heading">
+            <h2 id="code-laboratory-title">Equation studio</h2>
+            <span id="code-laboratory-hint">three views, one living form</span>
+          </div>
+          <div class="code-toolbar">
+            <div id="code-tabs" class="code-tabs" role="tablist" aria-label="Equation language">
+              <button type="button" role="tab" data-code-view="wolfram" aria-selected="true">Wolfram</button>
+              <button type="button" role="tab" data-code-view="p5js" aria-selected="false">p5.js</button>
+              <button type="button" role="tab" data-code-view="webgl" aria-selected="false">WebGL</button>
+            </div>
+            <button id="copy-code" class="copy-code" type="button">Copy</button>
+          </div>
+
+          <div id="code-panel-wolfram" class="code-panel" role="tabpanel" data-code-panel="wolfram">
+            <pre><code id="builder-wolfram-code"></code></pre>
+          </div>
+          <div id="code-panel-p5" class="code-panel" role="tabpanel" data-code-panel="p5js" hidden>
+            <pre><code id="builder-p5-code"></code></pre>
+          </div>
+          <div id="code-panel-webgl" class="code-panel webgl-panel" role="tabpanel" data-code-panel="webgl" hidden>
+            <div class="webgl-editor-heading">
+              <label id="webgl-editor-label" for="builder-webgl-code">Editable GLSL transform</label>
+              <span id="webgl-status" role="status">Updated</span>
+            </div>
+            <textarea id="builder-webgl-code" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+            <div class="editor-feedback">
+              <div class="editor-actions">
+                <button id="run-webgl" class="run-webgl" type="button">Apply code</button>
+                <button id="reset-webgl" type="button">Reset code</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer id="builder-credit" class="builder-credit" aria-label="Source attribution">
+          <span id="builder-p5-by">p5.js by</span>
+          <a href="https://x.com/yuruyurau/status/1933629116575855091" target="_blank" rel="noreferrer">@yuruyurau</a>
+          <span>·</span>
+          <span id="builder-wolfram-by">Wolfram translation by</span>
+          <a href="https://community.wolfram.com/groups/-/m/t/3529968" target="_blank" rel="noreferrer">Vitaliy Kaurov</a>
+          <span>·</span>
+          <a href="https://argon-analytik.ch/" target="_blank" rel="noreferrer">Argon Analytik</a>
+        </footer>
+      </aside>
+    </main>
+
+    <script type="module" src="/src/builder.ts"></script>
+  </body>
+</html>
