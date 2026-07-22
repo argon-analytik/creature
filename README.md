@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="public/favicon.svg" width="72" height="72" alt="Creature mark">
   <h1>creature</h1>
   <p><strong>A browser-native museum of equations and an experimental morphospace for generating new mathematical organisms.</strong></p>
 
