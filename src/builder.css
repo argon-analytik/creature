@@ -577,6 +577,43 @@ body.is-rendering #builder-canvas {
   border: 0;
 }
 
+.screensaver-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+
+.screensaver-actions button {
+  min-height: 30px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.screensaver-actions button:hover,
+.screensaver-actions button:focus-visible {
+  border-color: currentColor;
+  color: var(--text);
+}
+
+.screensaver-actions .screensaver-primary {
+  padding: 0 12px;
+  border: 1px solid var(--builder-accent);
+  color: var(--text);
+}
+
+.screensaver-status {
+  margin: 10px 0 0;
+  color: var(--quiet);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
 .code-laboratory {
   padding: 24px 0 26px;
   border-top: 1px solid rgb(255 255 255 / 8%);

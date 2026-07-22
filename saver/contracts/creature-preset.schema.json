@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://creature.argio.ch/saver/contracts/creature-preset.schema.json",
+  "title": "Creature screensaver preset",
+  "type": "object",
+  "required": ["format", "version", "id", "specimen", "locomotion", "presentation"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "creature-saver" },
+    "version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^creature-[a-f0-9]{8}$" },
+    "specimen": {
+      "type": "object",
+      "required": ["name", "genome", "morph", "palette", "customMorph", "origin"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "genome": { "type": "object" },
+        "morph": { "type": "object" },
+        "palette": {
+          "type": "object",
+          "required": ["body", "pulse"],
+          "additionalProperties": false,
+          "properties": {
+            "body": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+            "pulse": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+          }
+        },
+        "customMorph": {
+          "type": "object",
+          "required": ["assignments"],
+          "additionalProperties": false,
+          "properties": {
+            "assignments": { "type": "array", "maxItems": 12 }
+          }
+        },
+        "origin": { "enum": ["morphospace", "museum-working-copy"] }
+      }
+    },
+    "locomotion": {
+      "type": "object",
+      "required": ["forward", "confidence", "cadence", "speed", "curvature"],
+      "additionalProperties": false,
+      "properties": {
+        "forward": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number", "minimum": -1, "maximum": 1 } },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "cadence": { "type": "number", "minimum": 0.72, "maximum": 1.72 },
+        "speed": { "type": "number", "minimum": 0.035, "maximum": 0.075 },
+        "curvature": { "type": "number", "minimum": 0.045, "maximum": 0.14 }
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "required": ["scale", "edgeMargin", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "scale": { "type": "number", "minimum": 0.56, "maximum": 0.92 },
+        "edgeMargin": { "type": "number", "minimum": 0.2, "maximum": 0.3 },
+        "path": { "const": "cross-current" }
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@ dist/
 .DS_Store
 *.log
 .playwright-cli/
+saver/native/target/
 
 # Local browser QA artefacts are regenerated on demand.
 output/

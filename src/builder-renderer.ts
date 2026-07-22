@@ -43,6 +43,7 @@ uniform vec4 uMorphD;
 uniform vec4 uBodyColor;
 uniform vec4 uPulseColor;
 uniform vec3 uFrame;
+uniform vec4 uScreenPose;
 
 out vec4 vColor;
 
@@ -341,8 +342,11 @@ void main() {
   local = customMorph(local, index01, uTime) * uMorphA.x;
   local = (local - uFrame.xy) * uFrame.z;
 
+  float poseCos = cos(uScreenPose.z);
+  float poseSin = sin(uScreenPose.z);
+  local = mat2(poseCos, -poseSin, poseSin, poseCos) * local * uScreenPose.w;
   float scale = min(uViewport.x, uViewport.y) * 0.72;
-  vec2 screenPosition = uViewport * 0.5 + local * scale;
+  vec2 screenPosition = uViewport * uScreenPose.xy + local * scale;
   vec2 clipPosition = screenPosition / uViewport * 2.0 - 1.0;
   clipPosition.y *= -1.0;
   gl_Position = vec4(clipPosition, 0.0, 1.0);
@@ -400,6 +404,15 @@ interface Uniforms {
   readonly bodyColor: WebGLUniformLocation;
   readonly pulseColor: WebGLUniformLocation;
   readonly frame: WebGLUniformLocation;
+  readonly screenPose: WebGLUniformLocation;
+}
+
+/** A rigid screen-space pose. It deliberately cannot stretch or shear a form. */
+export interface BuilderRenderPose {
+  readonly x: number;
+  readonly y: number;
+  readonly angle: number;
+  readonly scale: number;
 }
 
 function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
@@ -496,6 +509,7 @@ export class BuilderRenderer {
     elapsedSeconds: number,
     frame?: Pick<BuilderFrame, 'centerX' | 'centerY' | 'scale'>,
     museumSource?: Pick<MuseumTransfer, 'variant' | 'pointCount'>,
+    pose?: BuilderRenderPose,
   ): void {
     if (this.contextLost) return;
     this.resize();
@@ -546,6 +560,13 @@ export class BuilderRenderer {
       frame?.centerX ?? 0,
       frame?.centerY ?? 0,
       frame?.scale ?? 1,
+    );
+    gl.uniform4f(
+      this.uniforms.screenPose,
+      pose?.x ?? 0.5,
+      pose?.y ?? 0.5,
+      pose?.angle ?? 0,
+      pose?.scale ?? 1,
     );
     gl.drawArrays(gl.POINTS, 0, pointCount);
     gl.bindVertexArray(null);
@@ -627,6 +648,7 @@ export class BuilderRenderer {
       bodyColor: requireUniform(gl, program, 'uBodyColor'),
       pulseColor: requireUniform(gl, program, 'uPulseColor'),
       frame: requireUniform(gl, program, 'uFrame'),
+      screenPose: requireUniform(gl, program, 'uScreenPose'),
     };
   }
 

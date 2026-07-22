@@ -1,0 +1,130 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-light.otf?v=1") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-regular.otf?v=1") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  background: #000;
+  color: #e7e7e3;
+  font-family: "Inter", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body,
+.saver-preview {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.saver-preview {
+  position: fixed;
+  inset: 0;
+}
+
+#saver-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+body.is-rendering #saver-canvas { opacity: 1; }
+
+.saver-overlay {
+  position: fixed;
+  z-index: 1;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(20px, env(safe-area-inset-right));
+  left: max(20px, env(safe-area-inset-left));
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  pointer-events: none;
+}
+
+.saver-label,
+.saver-overlay h1,
+.saver-controls button,
+.saver-message {
+  margin: 0;
+  font-weight: 400;
+}
+
+.saver-label {
+  color: rgb(255 255 255 / 46%);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.saver-overlay h1 {
+  margin-top: 6px;
+  max-width: min(54vw, 34rem);
+  color: rgb(255 255 255 / 82%);
+  font-size: clamp(13px, 1.35vw, 18px);
+  letter-spacing: 0.02em;
+}
+
+.saver-controls {
+  display: flex;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.saver-controls button {
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 24%);
+  background: transparent;
+  color: rgb(255 255 255 / 52%);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.saver-controls button:hover,
+.saver-controls button:focus-visible {
+  color: #fff;
+  border-color: currentColor;
+}
+
+.saver-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(28rem, calc(100% - 48px));
+  color: rgb(255 255 255 / 56%);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 640px) {
+  .saver-overlay { gap: 14px; }
+  .saver-controls { gap: 10px; }
+  .saver-controls button { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #saver-canvas { transition: none; }
+}

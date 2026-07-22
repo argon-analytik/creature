@@ -1,0 +1,46 @@
+{
+  "format": "creature-saver",
+  "version": 1,
+  "id": "creature-12345678",
+  "specimen": {
+    "name": "Native validation specimen",
+    "genome": {
+      "seed": 305419896,
+      "family": 0,
+      "modules": [0, 0, 0, 0],
+      "development": [0, 0, 0, 0],
+      "parameters": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      "sourcePointCount": 12000,
+      "normalization": 1,
+      "centerX": 0,
+      "centerY": 0
+    },
+    "morph": {
+      "scale": 1,
+      "reach": 1,
+      "fold": 1,
+      "lobes": 1,
+      "tension": 1,
+      "mutation": 1,
+      "gesture": 0,
+      "resonance": 1,
+      "texture": 1,
+      "polarity": 0,
+      "phase": 0,
+      "motion": 1,
+      "pulse": 1,
+      "density": 12000
+    },
+    "palette": { "body": "#d4d4d0", "pulse": "#54d7ff" },
+    "customMorph": { "assignments": [] },
+    "origin": "morphospace"
+  },
+  "locomotion": {
+    "forward": [1, 0],
+    "confidence": 0.6,
+    "cadence": 1,
+    "speed": 0.05,
+    "curvature": 0.08
+  },
+  "presentation": { "scale": 0.76, "edgeMargin": 0.24, "path": "cross-current" }
+}

@@ -74,6 +74,14 @@ export interface BuilderTranslation {
     readonly body: string;
     readonly pulse: string;
   };
+  readonly screensaver: {
+    readonly title: string;
+    readonly description: string;
+    readonly preview: string;
+    readonly download: string;
+    readonly exported: string;
+    readonly previewUnavailable: string;
+  };
   readonly code: {
     readonly title: string;
     readonly description: string;
@@ -192,6 +200,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       description: 'generated, then editable',
       body: 'Body',
       pulse: 'Pulse',
+    },
+    screensaver: {
+      title: 'Screensaver',
+      description: 'export this specimen for a native display host',
+      preview: 'Preview motion',
+      download: 'Download .creature',
+      exported: 'Screensaver preset downloaded',
+      previewUnavailable: 'The screensaver preview could not be opened.',
     },
     code: {
       title: 'Equations and code',
@@ -314,6 +330,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       body: 'Körper',
       pulse: 'Puls',
     },
+    screensaver: {
+      title: 'Bildschirmschoner',
+      description: 'dieses Exemplar für einen nativen Anzeige-Host exportieren',
+      preview: 'Bewegung ansehen',
+      download: '.creature laden',
+      exported: 'Bildschirmschoner-Preset geladen',
+      previewUnavailable: 'Die Bildschirmschoner-Vorschau konnte nicht geöffnet werden.',
+    },
     code: {
       title: 'Gleichungen und Code',
       description: 'drei Ansichten derselben Kreatur',
@@ -434,6 +458,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       description: 'genereret og derefter redigerbar',
       body: 'Krop',
       pulse: 'Impuls',
+    },
+    screensaver: {
+      title: 'Pauseskærm',
+      description: 'eksportér dette eksemplar til en oprindelig visningsværtsapp',
+      preview: 'Vis bevægelse',
+      download: 'Hent .creature',
+      exported: 'Pauseskærmspreset hentet',
+      previewUnavailable: 'Forhåndsvisningen af pauseskærmen kunne ikke åbnes.',
     },
     code: {
       title: 'Ligninger og kode',
@@ -556,6 +588,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       body: 'Corps',
       pulse: 'Impulsion',
     },
+    screensaver: {
+      title: 'Économiseur d’écran',
+      description: 'exporter ce spécimen pour un hôte d’affichage natif',
+      preview: 'Prévisualiser le mouvement',
+      download: 'Télécharger .creature',
+      exported: 'Préréglage d’économiseur téléchargé',
+      previewUnavailable: 'Impossible d’ouvrir l’aperçu de l’économiseur d’écran.',
+    },
     code: {
       title: 'Équations et code',
       description: 'trois lectures de la même créature',
@@ -676,6 +716,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       description: 'generato, poi modificabile',
       body: 'Corpo',
       pulse: 'Impulso',
+    },
+    screensaver: {
+      title: 'Salvaschermo',
+      description: 'esporta questo esemplare per un host di visualizzazione nativo',
+      preview: 'Anteprima del movimento',
+      download: 'Scarica .creature',
+      exported: 'Preset del salvaschermo scaricato',
+      previewUnavailable: 'Impossibile aprire l’anteprima del salvaschermo.',
     },
     code: {
       title: 'Equazioni e codice',
@@ -798,6 +846,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       body: '本体',
       pulse: 'パルス',
     },
+    screensaver: {
+      title: 'スクリーンセーバー',
+      description: 'この標本をネイティブ表示ホスト用に書き出します',
+      preview: '動きをプレビュー',
+      download: '.creature をダウンロード',
+      exported: 'スクリーンセーバーのプリセットをダウンロードしました',
+      previewUnavailable: 'スクリーンセーバーのプレビューを開けませんでした。',
+    },
     code: {
       title: '方程式とコード',
       description: '同じ生き物を表す3つの形式',
@@ -918,6 +974,14 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
       description: 'generado y después editable',
       body: 'Cuerpo',
       pulse: 'Pulso',
+    },
+    screensaver: {
+      title: 'Salvapantallas',
+      description: 'exporta este ejemplar para un host de visualización nativo',
+      preview: 'Previsualizar movimiento',
+      download: 'Descargar .creature',
+      exported: 'Preajuste de salvapantallas descargado',
+      previewUnavailable: 'No se pudo abrir la previsualización del salvapantallas.',
     },
     code: {
       title: 'Ecuaciones y código',

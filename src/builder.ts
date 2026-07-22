@@ -44,6 +44,11 @@ import {
   measureBuilderFrame,
   type BuilderFrame,
 } from './builder-framing';
+import {
+  CREATURE_SAVER_PREVIEW_KEY,
+  createCreatureSaverPreset,
+  serializeCreatureSaverPreset,
+} from './saver-preset';
 
 interface BuilderState {
   readonly genome: CreatureGenome;
@@ -352,6 +357,9 @@ const evolutionOptions = requireElement<HTMLElement>('#evolution-options');
 const formField = requireElement<HTMLButtonElement>('#form-field');
 const bodyColor = requireElement<HTMLInputElement>('#builder-body-color');
 const pulseColor = requireElement<HTMLInputElement>('#builder-pulse-color');
+const previewScreensaver = requireElement<HTMLButtonElement>('#preview-screensaver');
+const downloadScreensaver = requireElement<HTMLButtonElement>('#download-screensaver');
+const screensaverStatus = requireElement<HTMLParagraphElement>('#screensaver-status');
 const generateButton = requireElement<HTMLButtonElement>('#generate-builder');
 const varyButton = requireElement<HTMLButtonElement>('#vary-builder');
 const undoButton = requireElement<HTMLButtonElement>('#undo-builder');
@@ -639,6 +647,10 @@ function applyTranslation(): void {
   setText('palette-hint', translation.colour.description);
   setText('builder-body-label', translation.colour.body);
   setText('builder-pulse-label', translation.colour.pulse);
+  setText('screensaver-title', translation.screensaver.title);
+  setText('screensaver-hint', translation.screensaver.description);
+  previewScreensaver.textContent = translation.screensaver.preview;
+  downloadScreensaver.textContent = translation.screensaver.download;
   setText('code-laboratory-title', translation.code.title);
   setText('code-laboratory-hint', translation.code.description);
   codeTabs.setAttribute('aria-label', translation.code.tabLabel);
@@ -916,6 +928,57 @@ function updatePalette(): void {
   storeState();
 }
 
+function currentScreensaverPreset(): string {
+  return serializeCreatureSaverPreset(createCreatureSaverPreset({
+    name: state.name,
+    genome: state.genome,
+    morph: state.morph,
+    palette: state.palette,
+    customMorph: state.customMorph,
+    origin: state.museumSource ? 'museum-working-copy' : 'morphospace',
+  }));
+}
+
+function setScreensaverStatus(message: string): void {
+  screensaverStatus.hidden = false;
+  screensaverStatus.textContent = message;
+}
+
+function downloadScreensaverPreset(): void {
+  const source = currentScreensaverPreset();
+  const stem = state.name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 52) || 'creature';
+  const url = URL.createObjectURL(new Blob([source], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${stem}.creature`;
+  link.hidden = true;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  setScreensaverStatus(translation.screensaver.exported);
+}
+
+function previewScreensaverPreset(): void {
+  try {
+    localStorage.setItem(CREATURE_SAVER_PREVIEW_KEY, currentScreensaverPreset());
+    const preview = window.open('/saver/', '_blank');
+    if (!preview) throw new Error('The preview window was blocked.');
+    // Keep this same-origin preview isolated while retaining a reliable popup
+    // result across browsers (some return null when `noopener` is requested).
+    preview.opener = null;
+    setScreensaverStatus(translation.status.savedLocally);
+  } catch (error) {
+    console.error('The screensaver preview could not be opened.', error);
+    setScreensaverStatus(translation.screensaver.previewUnavailable);
+  }
+}
+
 for (const input of [bodyColor, pulseColor]) {
   input.addEventListener('pointerdown', beginInteraction);
   input.addEventListener('input', updatePalette);
@@ -925,6 +988,9 @@ for (const input of [bodyColor, pulseColor]) {
   });
   input.addEventListener('blur', finishInteraction);
 }
+
+previewScreensaver.addEventListener('click', previewScreensaverPreset);
+downloadScreensaver.addEventListener('click', downloadScreensaverPreset);
 
 function selectCodeTab(tab: CodeTab, focus = false): void {
   activeCodeTab = tab;

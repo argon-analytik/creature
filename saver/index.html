@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>creature screensaver preview</title>
+  </head>
+  <body>
+    <main class="saver-preview" aria-label="Creature screensaver preview">
+      <canvas id="saver-canvas" aria-hidden="true"></canvas>
+      <p id="saver-render-status" class="saver-message" role="status" hidden>
+        This preview needs a browser with WebGL 2 support.
+      </p>
+      <div class="saver-overlay">
+        <div>
+          <p class="saver-label">creature</p>
+          <h1 id="saver-name">Screensaver preview</h1>
+        </div>
+        <div class="saver-controls">
+          <button id="saver-reverse" type="button">Reverse direction</button>
+          <button id="saver-fullscreen" type="button">Fullscreen</button>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/saver-preview.ts"></script>
+  </body>
+</html>

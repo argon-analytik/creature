@@ -9,6 +9,7 @@ export default defineConfig({
         museum: new URL('./index.html', import.meta.url).pathname,
         builder: new URL('./builder/index.html', import.meta.url).pathname,
         morphospace: new URL('./morphospace/index.html', import.meta.url).pathname,
+        saver: new URL('./saver/index.html', import.meta.url).pathname,
       },
     },
   },
