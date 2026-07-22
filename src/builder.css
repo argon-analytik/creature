@@ -580,10 +580,28 @@ body.is-rendering #builder-canvas {
 .screensaver-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px 16px;
 }
 
+.screensaver-section .section-heading {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: 12px 20px;
+}
+
+.screensaver-section .section-heading > span {
+  min-width: 0;
+  max-width: 28ch;
+  justify-self: end;
+  line-height: 1.4;
+  text-align: right;
+  overflow-wrap: break-word;
+}
+
 .screensaver-actions button {
+  min-width: 0;
   min-height: 30px;
   padding: 0;
   border: 0;
@@ -592,6 +610,9 @@ body.is-rendering #builder-canvas {
   background: transparent;
   color: var(--muted);
   font-size: 10px;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
   cursor: pointer;
 }
 
@@ -882,6 +903,11 @@ summary:focus-visible {
 
   #builder-webgl-code {
     min-height: 300px;
+  }
+
+  .screensaver-actions {
+    display: grid;
+    grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
   }
 }
 

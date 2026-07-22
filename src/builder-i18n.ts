@@ -203,7 +203,7 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
     },
     screensaver: {
       title: 'Screensaver',
-      description: 'export this specimen for a native display host',
+      description: 'export a preset for native screen savers',
       preview: 'Preview motion',
       download: 'Download .creature',
       exported: 'Screensaver preset downloaded',
@@ -332,7 +332,7 @@ export const BUILDER_TRANSLATIONS: Readonly<Record<BuilderLocale, BuilderTransla
     },
     screensaver: {
       title: 'Bildschirmschoner',
-      description: 'dieses Exemplar für einen nativen Anzeige-Host exportieren',
+      description: 'Preset für native Bildschirmschoner exportieren',
       preview: 'Bewegung ansehen',
       download: '.creature laden',
       exported: 'Bildschirmschoner-Preset geladen',

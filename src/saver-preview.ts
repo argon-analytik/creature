@@ -1,6 +1,6 @@
 import './saver-preview.css';
 import { evaluateCustomMorph, formatWebGLInjection } from './builder-code';
-import { measureBuilderFrame, type BuilderFrame } from './builder-framing';
+import { measureBuilderFrame } from './builder-framing';
 import { BuilderRenderer } from './builder-renderer';
 import { sampleScreenSaverPose } from './saver-motion';
 import {
@@ -42,10 +42,29 @@ if (!preset) {
 
 let renderer: BuilderRenderer | undefined;
 let reversed = false;
-let start = performance.now();
+let elapsedSeconds = preset ? 0.14 / Math.max(0.0001, preset.locomotion.speed) : 0;
+let previousFrame = performance.now();
 let animationFrame = 0;
-let measuredFrame: BuilderFrame | undefined;
-let nextFrameMeasurement = 0;
+
+// A screen saver should never appear to twitch because its camera is chasing
+// a changing point cloud. Measure several phases once and keep that shared
+// frame for the complete preview. The creature may still deform and swim, but
+// its presentation remains spatially coherent.
+const measuredFrame = preset
+  ? measureBuilderFrame(
+      preset.specimen.genome,
+      preset.specimen.morph,
+      0,
+      {
+        sampleCount: 1_024,
+        timeOffsets: [0, Math.PI / 3, 2 * Math.PI / 3, Math.PI, 4 * Math.PI / 3, 5 * Math.PI / 3],
+        fitSpan: 1,
+        pointTransform: (point, index01, frameTime) => (
+          evaluateCustomMorph(preset.specimen.customMorph, point, index01, frameTime)
+        ),
+      },
+    )
+  : undefined;
 
 function setRenderState(next: 'ready' | 'lost' | 'unsupported'): void {
   if (next === 'ready') {
@@ -73,10 +92,15 @@ if (preset) {
 
 function render(now: number): void {
   if (!preset || !renderer) return;
+  const deltaSeconds = document.hidden
+    ? 0
+    : Math.min(0.05, Math.max(0, (now - previousFrame) / 1_000));
+  previousFrame = now;
+  if (!reducedMotion.matches) elapsedSeconds += deltaSeconds;
   const aspect = Math.max(0.1, canvas.clientWidth / Math.max(1, canvas.clientHeight));
   const seconds = reducedMotion.matches
     ? 0.42 / preset.locomotion.speed
-    : (now - start) / 1_000;
+    : elapsedSeconds;
   const pose = sampleScreenSaverPose(
     preset.locomotion,
     seconds,
@@ -84,19 +108,6 @@ function render(now: number): void {
     preset.presentation.scale,
     reversed,
   );
-  if (!measuredFrame || now >= nextFrameMeasurement) {
-    measuredFrame = measureBuilderFrame(
-      preset.specimen.genome,
-      preset.specimen.morph,
-      seconds * preset.locomotion.cadence,
-      {
-        pointTransform: (point, index01, frameTime) => (
-          evaluateCustomMorph(preset.specimen.customMorph, point, index01, frameTime)
-        ),
-      },
-    );
-    nextFrameMeasurement = now + 260;
-  }
   renderer.render(
     preset.specimen.genome,
     preset.specimen.morph,
@@ -125,7 +136,7 @@ fullscreenButton.addEventListener('click', async () => {
 });
 
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) start = performance.now();
+  previousFrame = performance.now();
 });
 window.addEventListener('pagehide', () => {
   window.cancelAnimationFrame(animationFrame);
